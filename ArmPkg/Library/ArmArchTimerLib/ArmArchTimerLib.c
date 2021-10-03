@@ -67,7 +67,12 @@ TimerConstructor (
     // mode (if secure extension is supported).
     // If the reset value (0) is returned, just ASSERT.
     //
-    ASSERT (ArmGenericTimerGetTimerFreq () != 0);
+    
+    // Quick and dirty patch for KVM on Exynos
+    // Samsung SBOOT set cntfrq_el0 to 0 so this check won't pass
+    // See more here: https://github.com/sleirsgoevy/exynos-kvm-patch
+    
+    //ASSERT (ArmGenericTimerGetTimerFreq () != 0);
 
   } else {
     DEBUG ((EFI_D_ERROR, "ARM Architectural Timer is not available in the CPU, hence this library cannot be used.\n"));
